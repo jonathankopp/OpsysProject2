@@ -42,13 +42,13 @@ if __name__ == '__main__':
 	## Contiguous -- First-Fit
 	ffProcesses = copy.deepcopy(processes)
 	memory = firstFitMemory(numFrames, memorySize, tMemMove)
-	# run(memory, ffProcesses, maxATime)
+	run(memory, ffProcesses, maxATime)
 	print()
 
 	## Contiguous -- Next-Fit
 	nfProcesses = copy.deepcopy(processes)
 	memory = nextFitMemory(numFrames, memorySize, tMemMove)
-	# run(memory, nfProcesses, maxATime)
+	run(memory, nfProcesses, maxATime)
 	print()
 
 	## Contiguous -- Best-Fit

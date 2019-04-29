@@ -276,7 +276,6 @@ class bestFitMemory(Memory):
 				# the check if its still focused on the same memory segmant
 				if(lastWasFree):
 					self.freeChunks[sFrame] += 1
-
 				# if the current frame is free but its the start of a new memory segmant
 				else:
 					sFrame = index
