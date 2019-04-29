@@ -294,10 +294,56 @@ class bestFitMemory(Memory):
 	def defrag(self):
 		return super().defrag()
 
-	def findFreeChunks(self):
-		return super.findFreeChunks()
-
 class nonContiguousMemory(Memory):
 	def __init__(self, numFrames, memorySize, tMemMove):
 		super().__init__(numFrames, memorySize, tMemMove)
 		self.type = "(Non-Contiguous)"
+		self.memIndex = 0
+
+	def update(self, time):
+		# for all running processes
+		for process in sorted(self.running, key=lambda process: process.name):
+			# Decrement time left for process
+			process.runTime -= 1
+			# logic to remove memory
+			if process.runTime == 0:
+				for i in range(len(self.memory)):
+					if(self.memory[i] == process.name):
+						self.memory[i] = '.'
+				print("time {}ms: Process {} removed:".format(time, process.name))
+				print(str(self))
+				self.running.remove(process)
+		# for all processes ready to be added to memory
+		for process in sorted(self.ready, key=lambda process: process.name):
+			print("time {}ms: Process {} arrived (requires {} frames)".format(time, process.name, process.memorySize))
+			self.ready.remove(process)
+			# logic to place memory
+			free = 0
+			if(self.canFit(process.memorySize)):
+				# shove it in
+				size = process.memorySize
+				for i in range(len(self.memory)):
+					if(self.memory[i] == '.' and size >0):
+						self.memory[i] = process.name
+						size -= 1
+				print("time {}ms: Placed process {}:".format(time, process.name))
+				print(str(self))
+			# if there isn't enough free memory left
+			else:
+				# if no, do not place the process and continue
+				print("time {}ms: Cannot place process {} -- skipped!".format(time, process.name))
+				continue
+			self.running.append(process)
+			# write the process into memory using the start index found above
+		return time
+
+	def add(self, process, time):
+		super().add(process, time)
+	def canFit(self, pSize):
+		count = 0
+		for frame in self.memory:
+			if(frame == '.'):
+				count += 1
+		if(count >= pSize):
+			return 1
+		return 0

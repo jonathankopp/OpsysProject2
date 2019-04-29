@@ -60,5 +60,5 @@ if __name__ == '__main__':
 	## Non-Contiguous
 	ncProcesses = copy.deepcopy(processes)
 	memory = nonContiguousMemory(numFrames, memorySize, tMemMove)
-	# run(memory, ncProcesses, maxATime)
+	run(memory, ncProcesses, maxATime)
 	print()
