@@ -29,6 +29,8 @@ if __name__ == '__main__':
 	processes = []
 	f = open(fName,"r")
 	for line in f.readlines():
+		if(line[0] == '\n' or line[0] == '#' or line[0]==" "):
+			continue
 		line = line.replace("\n", "").split(" ")
 		name = line[0]
 		size = int(line[1])
