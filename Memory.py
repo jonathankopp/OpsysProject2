@@ -262,13 +262,6 @@ class bestFitMemory(Memory):
 				bestSize = self.freeChunks[startIndex]
 		# print(bestFit,bestSize)
 		return bestFit,bestSize
-
-
-
-
-
-
-
 	def updateFreeChunks(self):
 		lastFrame = None
 		index = 0
