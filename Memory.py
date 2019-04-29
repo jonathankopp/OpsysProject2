@@ -258,8 +258,8 @@ class bestFitMemory(Memory):
 				if(self.freeChunks[startIndex] ==  bestSize):
 					if(startIndex > bestFit):
 						continue
-					bestFit = startIndex
-					bestSize = self.freeChunks[startIndex]
+				bestFit = startIndex
+				bestSize = self.freeChunks[startIndex]
 		# print(bestFit,bestSize)
 		return bestFit,bestSize
 
@@ -280,12 +280,6 @@ class bestFitMemory(Memory):
 			# print(currentFrame," ",lastWasFree," ",sFrame)
 			if(currentFrame == '.'):
 				# if its a the top of the memory segmant
-				if(i == 0):
-					sFrame = index
-					lastWasFree = True
-					self.freeChunks[sFrame] = 1
-					i+=1
-					continue
 				# the check if its still focused on the same memory segmant
 				if(lastWasFree):
 					self.freeChunks[sFrame] += 1
